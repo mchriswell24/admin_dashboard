@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Employee Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-firestore-compat.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h2>Admin Dashboard</h2>
+    <input type="text" id="searchInput" placeholder="Search by name...">
+    <button onclick="loadEmployees()">Refresh</button>
+    <table id="employeeTable">
+      <thead>
+        <tr>
+          <h4>Employee</h4>
+          <th>EID</th>
+          <th>Name</th>
+          <th>Position</th>
+          <th>Department</th>
+          <th>Salary</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+        <button onclick="openAddModal()">Add New Employee</button>
+
+    <h5>Loans</h5>
+<table id="loanTable">
+  <thead>
+    <tr>
+      <th>EID</th>
+      <th>Loan Amount</th>
+      <th>Date</th>
+      <th>Actions</th>
+
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+    <button onclick="openLoanModal()">Add Loan Record</button>
+
+  <h6>Department</h6>
+<table id="departmentTable">
+  <thead>
+    <tr>
+      <th>Department</th>
+      <th>Department Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+    <button onclick="openDepartmentModal()">Add Department Record</button>
+
+<!-- Modal -->
+<div id="addModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span class="close" onclick="closeAddModal()">&times;</span>
+    <h3>Add New Employee</h3>
+    <form id="addForm">
+      <label>EID: <input type="number" name="Eid" required></label><br>
+      <label>Name: <input type="text" name="Name" required></label><br>
+      <label>Position: <input type="text" name="Position" required></label><br>
+      <label>Salary: <input type="number" name="Salary" required></label><br>
+      <label>Age: <input type="number" name="Age" required></label><br>
+      <label>Address: <input type="text" name="Address" required></label><br>
+      <label>DeptCode: <input type="text" name="DeptCode" required></label><br><br>
+      <button type="submit">Add Employee</button>
+    </form>
+  </div>
+</div>
+<!-- Edit Modal -->
+<div id="editModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span class="close" onclick="closeEditModal()">&times;</span>
+    <h3>Edit Employee</h3>
+    <form id="editForm">
+      <input type="hidden" name="docId">
+      <label>EID: <input type="number" name="Eid" required></label><br>
+      <label>Name: <input type="text" name="Name" required></label><br>
+      <label>Position: <input type="text" name="Position" required></label><br>
+      <label>Salary: <input type="number" name="Salary" required></label><br>
+      <label>Age: <input type="number" name="Age" required></label><br>
+      <label>Address: <input type="text" name="Address" required></label><br>
+      <label>DeptCode: <input type="text" name="DeptCode" required></label><br><br>
+      <button type="submit">Update Employee</button>
+    </form>
+  </div>
+</div>
+
+<!-- Loan Modal -->
+<div id="loanModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span class="close" onclick="closeLoanModal()">&times;</span>
+    <h3>Add Loan Record</h3>
+    <form id="loanForm">
+      <label>EID: <input type="number" name="Eid" required></label><br>
+      <label>Loan Amount: <input type="number" name="LoanAmount" required></label><br>
+      <label>Date: <input type="date" name="Date" required></label><br><br>
+      <button type="submit">Add Loan</button>
+    </form>
+  </div>
+</div>
+
+<!-- Edit Loan Modal -->
+<div id="editLoanModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span class="close" onclick="closeEditLoanModal()">&times;</span>
+    <h3>Edit Loan</h3>
+    <form id="editLoanForm">
+      <input type="hidden" name="docId">
+      <label>EID: <input type="number" name="Eid" required></label><br>
+      <label>Loan Amount: <input type="number" name="LoanAmount" required></label><br>
+      <label>Date: <input type="date" name="Date" required></label><br><br>
+      <button type="submit">Update Loan</button>
+    </form>
+  </div>
+</div>
+
+<!-- Add Department Modal -->
+<div id="departmentModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span class="close" onclick="closeDepartmentModal()">&times;</span>
+    <h3>Add Department Record</h3>
+    <form id="departmentForm">
+      <label>Department Code: <input type="text" name="Department" required></label><br>
+      <label>Department Name: <input type="text" name="DepartmentName" required></label><br><br>
+      <button type="submit">Add Department</button>
+    </form>
+  </div>
+</div>
+
+<!-- Edit Department Modal -->
+<div id="editDepartmentModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span class="close" onclick="closeEditDepartmentModal()">&times;</span>
+    <h3>Edit Department</h3>
+    <form id="editDepartmentForm">
+      <input type="hidden" name="docId">
+      <label>Department: <input type="text" name="Department" required></label><br>
+      <label>Department Name: <input type="text" name="DepartmentName" required></label><br><br>
+      <button type="submit">Update Department</button>
+    </form>
+  </div>
+</div>
+
+  <script src="script.js"></script>
+</body>
+</html>
